@@ -18,3 +18,19 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    ldap:
+        class: Symfony\Component\Ldap\Ldap
+        factory: ['Symfony\Component\Ldap\Ldap', 'create']
+        arguments:
+            - 'ext_ldap'
+            -
+                host: 192.168.56.101
+                port: 389
+                options:
+                    protocol_version: 3
+                    referrals: false
+        tags: ['ldap']
+
+     # Alias pour l'injection de dépendance
+    Symfony\Component\Ldap\LdapInterface: '@ldap'
