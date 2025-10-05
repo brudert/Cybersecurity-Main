@@ -13,12 +13,13 @@ security:
                 base_dn: 'CN=Users,DC=KILLERBE,DC=fr'
                 search_dn: 'cn=user,CN=Users,DC=KILLERBE,DC=fr'
                 search_password: user123
-                default_roles: ROLE_USER
+                #default_roles: ROLE_USER
                 uid_key: userPrincipalName
+                role_fetcher: role_fetcher
         # used to reload user from session & other features (e.g. switch_user)
         #app_user_provider:
             #id: App\Security\UserProvider
-                #extra_fields: ['email']
+                #extra_fields: ['memberOf']
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -37,6 +38,7 @@ security:
                 username_parameter: _username
                 password_parameter: _password
                 service: ldap
+                
 
             logout:
                 path: app_logout    
@@ -51,8 +53,10 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/home, roles: ROLE_USER }
-         #- { path: ^/, roles: ROLE_USER }
+        - { path: ^/research, roles: ROLE_CHERCHEUR }
+        - { path: ^/test, roles: ROLE_TESTEUR }
+        - { path: ^/production, roles: ROLE_PRODUCTEUR }
+         #- { path: ^/, roles: ROLE_CHERCHEUR }
 
 when@test:
     security:

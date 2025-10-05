@@ -32,5 +32,20 @@ services:
                     referrals: false
         tags: ['ldap']
 
+
+    role_fetcher:
+        class: Symfony\Component\Ldap\Security\MemberOfRoles
+        
+        arguments: 
+            - 
+                # Mapping des groupes LDAP vers les rôles Symfony
+                'CN=chercheurs,DC=KILLERBE,DC=fr': 'ROLE_CHERCHEUR'
+                'CN=testeurs,DC=KILLERBE,DC=fr': 'ROLE_TESTEUR'
+                'CN=producteurs,DC=KILLERBE,DC=fr': 'ROLE_PRODUCTEUR'
+        public: true
+                
+
+
+
      # Alias pour l'injection de dépendance
     Symfony\Component\Ldap\LdapInterface: '@ldap'

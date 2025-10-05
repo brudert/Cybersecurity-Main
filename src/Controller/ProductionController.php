@@ -8,14 +8,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class homeController extends AbstractController
-{
-    #[Route('/home', name: 'home_page')] 
+class ProductionController extends AbstractController
+{   // espace pour les chefs de productions uniquement
+    
+    #[Route('/production', name: 'production_page')] 
 
     public function show(): Response
     {
         
         
-        return new Response('welcome to home page');
+        return new Response('welcome to producers space');
     }
 }
