@@ -18,3 +18,34 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    ldap:
+        class: Symfony\Component\Ldap\Ldap
+        factory: ['Symfony\Component\Ldap\Ldap', 'create']
+        arguments:
+            - 'ext_ldap'
+            -
+                host: 192.168.56.101
+                port: 389
+                options:
+                    protocol_version: 3
+                    referrals: false
+        tags: ['ldap']
+
+
+    role_fetcher:
+        class: Symfony\Component\Ldap\Security\MemberOfRoles
+        
+        arguments: 
+            - 
+                # Mapping des groupes LDAP vers les rôles Symfony
+                'CN=chercheurs,DC=KILLERBE,DC=fr': 'ROLE_CHERCHEUR'
+                'CN=testeurs,DC=KILLERBE,DC=fr': 'ROLE_TESTEUR'
+                'CN=producteurs,DC=KILLERBE,DC=fr': 'ROLE_PRODUCTEUR'
+        public: true
+                
+
+
+
+     # Alias pour l'injection de dépendance
+    Symfony\Component\Ldap\LdapInterface: '@ldap'
