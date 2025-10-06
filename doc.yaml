@@ -1,0 +1,612 @@
+openapi: 3.0.4
+info:
+  title: KB-Freezebee API
+  description: |-
+    This is the API for the freezebee managing microservice for the KillerBee web app
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io
+servers:
+  - url: https://localhost/api/
+
+tags:
+  - name: Auth
+    description: authentication options
+  - name: General
+    description: General utilities
+  - name: RnD
+    description: Research and development tools - requires auth with an user of the correct group
+  - name: Testing
+    description: Tester utilities - requires auth with an user of the correct group
+paths:
+  /app_login/:
+    post:
+      tags:
+        - Auth
+      summary: logs in the application
+      description: logs in the application.
+      operationId: login
+      requestBody:
+        description: logins in with the following credentials
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: string
+                  token:
+                    type: string
+  /app_logout/:
+    get:
+      tags:
+        - Auth
+      summary: logs out of the application
+      description: logs out of the application.
+      operationId: logout
+      responses:
+        '200':
+          description: Successful operation
+  /rnd/model/{modelId}:
+    put:
+      tags:
+        - RnD
+      summary: Update an existing model.
+      description: Update an existing model by Id.
+      operationId: updateModel      
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: modelId
+          schema:
+            type: string
+            format: UUID
+          required: true
+          description: Numeric ID of the model.
+      requestBody:
+        description: Update an existent model for each of the given fields
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Model_input'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model_output'
+    delete:
+      tags: 
+        - RnD
+      summary: Deletes a model.
+      description: Deletes a model.
+      operationId: deleteModel   
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: modelId
+          schema:
+            type: string
+            format: UUID
+          required: true
+          description: Numeric ID of the model.
+      responses:
+        '200':
+          description: Successful operation
+  /model/{modelId}:
+    get:
+      tags: 
+        - General
+      summary: Fetches a model.
+      description: Fetches a model.
+      operationId: getModel   
+      parameters:
+        - in: path
+          name: modelId
+          schema:
+            type: string
+            format: UUID
+          required: true
+          description: Numeric ID of the model.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model_output'
+  /rnd/model/:
+    post:
+      tags:
+        - RnD
+      summary: Add a new model.
+      description: Add a new model.
+      operationId: addModel   
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: Create a model
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Model_input'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model_output'
+  /models/:
+    get:
+      tags:
+        - General
+      summary: Fetches all models.
+      description: Fetches all models.
+      operationId: getModels
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Model_output'
+  /ingredient/:
+    get:
+      tags:
+        - General
+      summary: Fetches all ingredients.
+      description: Fetches all ingredients.
+      operationId: getIngredients
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ingredient_output'
+  /rnd/ingredient/:
+    post:
+      tags:
+        - RnD
+      summary: Creates a new ingredient.
+      description: Creates a new ingredient.
+      operationId: createIngredients   
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: Create an ingredient
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ingredient_input'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ingredient_output'
+  /rnd/ingredient/{ingredientId}/:
+    put:
+      tags:
+        - RnD
+      summary: Updates an ingredient.
+      description: Updates an ingredient.
+      operationId: modifyIngredients   
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: ingredientId
+          schema:
+            type: string
+            format: UUID
+          required: true
+          description: Numeric ID of the ingredient.
+      requestBody:
+        description: Modify an ingredient
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ingredient_input'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ingredient_output'
+  /characteristic/:
+    get:
+      tags:
+        - General
+      summary: Fetches all characteristic.
+      description: Fetches all characteristic.
+      operationId: getCharacteristic
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Characteristic_output'
+  /rnd/characteristic/:
+    post:
+      tags:
+        - RnD
+      summary: Creates a new characteristic.
+      description: Creates a new characteristic.
+      operationId: createCharacteristic   
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: Create an characteristic
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Characteristic_input'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Characteristic_output'
+  /rnd/characteristic/{characteristicId}/:
+    put:
+      tags:
+        - RnD
+      summary: Updates an characteristic.
+      description: Updates an characteristic.
+      operationId: modifyCharacteristic   
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: characteristicId
+          schema:
+            type: string
+            format: UUID
+          required: true
+          description: Numeric ID of the characteristic.
+      requestBody:
+        description: Modify an characteristic
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Characteristic_input'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Characteristic_output'
+  /test/validate/{processId}:
+    put:
+      tags:
+        - Testing
+      summary: Validates an existing process.
+      description: Validates an existing process by Id.
+      operationId: validateProcess   
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: processId
+          schema:
+            type: string
+            format: UUID
+          required: true
+          description: Numeric ID of the process.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Process_output'
+  /rnd/process/{processId}:
+    put:
+      tags:
+        - RnD
+      summary: Update an existing process.
+      description: Update an existing process by Id.
+      operationId: updateProcess   
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: processId
+          schema:
+            type: string
+            format: UUID
+          required: true
+          description: Numeric ID of the process.
+      requestBody:
+        description: Update an existant process for each of the given fields
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Process_input'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Process_output'
+    delete:
+      tags: 
+        - RnD
+      summary: Deletes a process.
+      description: Deletes a process.
+      operationId: deleteProcess   
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: processId
+          schema:
+            type: string
+            format: UUID
+          required: true
+          description: Numeric ID of the process.
+      responses:
+        '200':
+          description: Successful operation
+  /process/{processId}/:
+    get:
+      tags: 
+        - General
+      summary: Fetches a process.
+      description: Fetches a process.
+      operationId: getProcess   
+      parameters:
+        - in: path
+          name: processId
+          schema:
+            type: string
+            format: UUID
+          required: true
+          description: Numeric ID of the process.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Process_output'
+  /rnd/process/:
+    post:
+      tags:
+        - RnD
+      summary: Add a new process.
+      description: Add a new process.
+      operationId: addProcess   
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: Create a process
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Process_input'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Process_output'
+components:
+  securitySchemes:
+    bearerAuth: 
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Model_input:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "sharingan"
+        description:
+          type: string
+          example: "A red freezebee with 3 tomoes around it's center"
+        pUHT:
+          type: integer
+          format: int32
+          example: 3599
+        series_id:
+          type: string
+          format: uuid
+          example: c018a866-e486-492b-95ce-47737322e445
+        ingredients:
+          type: array
+          description: ingredients to make the freezebee
+          items: 
+            type: object
+            properties: 
+              ingredient_id:
+                type: string
+                format: uuid
+                example: 441e74d5-7b66-46e2-9465-28d23ba441dc
+              dosage:
+                type: integer
+                format: int32
+                example: 250
+        characteristics:
+          type: array
+          description: the freezebee's characteristics' IDs
+          items: 
+            type: string
+            format: uuid
+            example: 21885aee-703f-4ffe-9195-73b3bc6cea69
+    Model_output:
+      type: object
+      properties:
+        id:
+          type: string
+          format: UUID
+          example: b0587294-064d-499e-877d-784024f13353
+        name:
+          type: string
+          example: "sharingan"
+        description:
+          type: string
+          example: "A red freezebee with 3 tomoes around it's center"
+        pUHT:
+          type: integer
+          format: int32
+          example: 3599
+        series:
+          $ref: '#/components/schemas/Series_output'
+        ingredients:
+          type: array
+          description: ingredients to make the freezebee
+          items: 
+            type: object
+            properties: 
+              ingredient:
+                $ref: '#/components/schemas/Ingredient_output'
+              dosage:
+                type: integer
+                format: int32
+                example: 250
+        characteristics:
+          type: array
+          description: the freezebee's characteristics
+          items: 
+            $ref: '#/components/schemas/Characteristic_output'
+    Series_intput:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Anime
+    Series_output:
+      type: object
+      properties:
+        id:
+          type: string
+          format: UUID
+          example: c018a866-e486-492b-95ce-47737322e445
+        name:
+          type: string
+          example: Anime
+    Ingredient_input:
+      type: object
+      properties:
+        name:
+          type: string
+          example: PLA-25-RED
+        description:
+          type: string
+          example: Red PLA filament with a radius of 2.5mm
+    Characteristic_output:
+      type: object
+      properties:
+        id:
+          type: string
+          format: UUID
+          example: 21885aee-703f-4ffe-9195-73b3bc6cea69
+        name:
+          type: string
+          example: big
+        description:
+          type: string
+          example: A really really big freezebee
+    Characteristic_input:
+      type: object
+      properties:
+        name:
+          type: string
+          example: big
+        description:
+          type: string
+          example:  really really big freezebee
+    Ingredient_output:
+      type: object
+      properties:
+        id:
+          type: string
+          format: UUID
+          example: 441e74d5-7b66-46e2-9465-28d23ba441dc
+        name:
+          type: string
+          example: PLA-25-RED
+        description:
+          type: string
+          example: Red PLA filament with a radius of 2.5mm
+    Process_input:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Bending Tolerance 256
+        description:
+          type: string
+          example: test for the freezebee's bending tolerance
+        tests:
+          type: string
+          example: "Use the bending machine to see how much bending the disk can take before having a permanent deviation >5°."
+    Process_output:
+      type: object
+      properties:
+        id:
+          type: string
+          format: UUID
+          example: e349431c-d257-4102-820c-f3b39b2e0f8b
+        name:
+          type: string
+          example: Bending Tolerance 256
+        description:
+          type: string
+          example: test for the freezebee's bending tolerance
+        tests:
+          type: string
+          example: "Use the bending machine to see how much bending the disk can take before having a permanent deviation >5°."
+        validated:
+          type: boolean
