@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Infrastructure\Controller;
+namespace App\Controller;
 
 use App\Infrastructure\Freezebee\CharacteristicsApi;
 use App\Model\FreezebeeDTO\CharacteristicInput;
@@ -76,7 +75,7 @@ class CharacteristicsController extends AbstractController
     /**
      * Récupérer toutes les caractéristiques
      */
-    #[Route('/rnd/characteristic/', name: 'get_all_characteristics', methods: ['GET'])]
+    #[Route('/characteristic', name: 'get_all_characteristics', methods: ['GET'])]
     public function getAllCharacteristics(): JsonResponse
     {
         try {

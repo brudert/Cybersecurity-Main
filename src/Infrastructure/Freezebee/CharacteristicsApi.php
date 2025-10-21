@@ -187,8 +187,8 @@ class CharacteristicsApi
 
             switch($statusCode) {
                 case 200:
-                    return $this->handleResponseWithDataType(
-                        'App\Model\FreezebeeDTO\CharacteristicOutput',
+                    return $this->handleResponseWithDataTypeseries(
+                        'CharacteristicOutput',
                         $request,
                         $response,
                     );
@@ -210,7 +210,7 @@ class CharacteristicsApi
             }
 
             return $this->handleResponseWithDataType(
-                'App\Model\FreezebeeDTO\CharacteristicOutput',
+                'CharacteristicOutput',
                 $request,
                 $response,
             );
@@ -219,7 +219,7 @@ class CharacteristicsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        'App\Model\FreezebeeDTO\CharacteristicOutput',
+                        'CharacteristicOutput',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -265,7 +265,7 @@ class CharacteristicsApi
      */
     public function createCharacteristicAsyncWithHttpInfo($characteristic_input, string $contentType = self::contentTypes['createCharacteristic'][0])
     {
-        $returnType = 'App\Model\FreezebeeDTO\CharacteristicOutput';
+        $returnType = 'CharacteristicOutput';
         $request = $this->createCharacteristicRequest($characteristic_input, $contentType);
 
         return $this->client
@@ -453,7 +453,7 @@ class CharacteristicsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        'App\Model\FreezebeeDTO\CharacteristicOutput[]',
+                        'CharacteristicOutput[]',
                         $request,
                         $response,
                     );
@@ -475,7 +475,7 @@ class CharacteristicsApi
             }
 
             return $this->handleResponseWithDataType(
-                'App\Model\FreezebeeDTO\CharacteristicOutput[]',
+                'CharacteristicOutput[]',
                 $request,
                 $response,
             );
@@ -484,7 +484,7 @@ class CharacteristicsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        'App\Model\FreezebeeDTO\CharacteristicOutput[]',
+                        'CharacteristicOutput[]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -528,7 +528,7 @@ class CharacteristicsApi
      */
     public function getCharacteristicAsyncWithHttpInfo(string $contentType = self::contentTypes['getCharacteristic'][0])
     {
-        $returnType = 'App\Model\FreezebeeDTO\CharacteristicOutput[]';
+        $returnType = 'CharacteristicOutput[]';
         $request = $this->getCharacteristicRequest($contentType);
 
         return $this->client
@@ -704,8 +704,8 @@ class CharacteristicsApi
 
             switch($statusCode) {
                 case 200:
-                    return $this->handleResponseWithDataType(
-                        'App\Model\FreezebeeDTO\CharacteristicOutput',
+                    return $this->handleResponseWithDataTypeseries(
+                        'CharacteristicOutput',
                         $request,
                         $response,
                     );
@@ -727,7 +727,7 @@ class CharacteristicsApi
             }
 
             return $this->handleResponseWithDataType(
-                'App\Model\FreezebeeDTO\CharacteristicOutput',
+                'CharacteristicOutput',
                 $request,
                 $response,
             );
@@ -736,7 +736,7 @@ class CharacteristicsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        'App\Model\FreezebeeDTO\CharacteristicOutput',
+                        'CharacteristicOutput',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -784,7 +784,7 @@ class CharacteristicsApi
      */
     public function modifyCharacteristicAsyncWithHttpInfo($characteristic_id, $characteristic_input, string $contentType = self::contentTypes['modifyCharacteristic'][0])
     {
-        $returnType = 'App\Model\FreezebeeDTO\CharacteristicOutput';
+        $returnType = 'CharacteristicOutput';
         $request = $this->modifyCharacteristicRequest($characteristic_id, $characteristic_input, $contentType);
 
         return $this->client
