@@ -91,6 +91,7 @@ class IngredientsController extends AbstractController
         }
     }
     #[Route('/rnd/ingredient/{ingredientId}', name: 'update_ingredient', methods: ['PUT'])]
+    #[IsGranted('ROLE_CHERCHEUR', message: 'Seuls les chercheurs peuvent modifier des ingrédients')]
     public function update(Request $request, string $ingredientId) : JsonResponse
     {
         try
