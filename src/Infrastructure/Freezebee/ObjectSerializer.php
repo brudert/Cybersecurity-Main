@@ -26,9 +26,9 @@
  */
 
 namespace App\Infrastructure\Freezebee;
-
+use App\Model\FreezebeeDTO\IngredientOutput;
+use App\Model\FreezebeeDTO\ModelInterface;
 use GuzzleHttp\Psr7\Utils;
-use OpenAPI\Client\Model\ModelInterface;
 
 /**
  * ObjectSerializer Class Doc Comment
@@ -62,7 +62,7 @@ class ObjectSerializer
      * @return scalar|object|array|null serialized form of $data
      */
     public static function sanitizeForSerialization($data, $type = null, $format = null)
-    {
+    {   
         if (is_scalar($data) || null === $data) {
             return $data;
         }
@@ -492,6 +492,7 @@ class ObjectSerializer
             }
             return $data;
         } else {
+
             $data = is_string($data) ? json_decode($data) : $data;
 
             if (is_array($data)) {
@@ -499,13 +500,16 @@ class ObjectSerializer
             }
 
             // If a discriminator is defined and points to a valid subclass, use it.
-            $discriminator = $class::DISCRIMINATOR;
+            //dd($class::DISCRIMINATOR);
+            $discriminator = $class;//::DISCRIMINATOR;
             if (!empty($discriminator) && isset($data->{$discriminator}) && is_string($data->{$discriminator})) {
-                $subclass = '\OpenAPI\Client\Model\\' . $data->{$discriminator};
+                $subclass = 'App\Model\FreezebeeDTO\\' . $data->{$discriminator};
                 if (is_subclass_of($subclass, $class)) {
                     $class = $subclass;
                 }
             }
+
+            $class = "\\App\\Model\\FreezebeeDTO\\" . $class;
 
             /** @var ModelInterface $instance */
             $instance = new $class();
