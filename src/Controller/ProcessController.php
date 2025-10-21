@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ProcessController extends AbstractController
 {
@@ -22,6 +23,7 @@ class ProcessController extends AbstractController
      * Créer un nouveau processus
      */
     #[Route('/rnd/process/', name: 'create_process', methods: ['POST'])] 
+    #[IsGranted('ROLE_CHERCHEUR', message: 'Seuls les chercheurs peuvent ajouter des process')]
     public function create(Request $request): JsonResponse
     {
         try {
@@ -107,6 +109,7 @@ class ProcessController extends AbstractController
      * Mettre à jour un processus
      */
     #[Route('/rnd/process/{id}', name: 'update_process', methods: ['PUT'])]
+    #[IsGranted('ROLE_CHERCHEUR', message: 'Seuls les chercheurs peuvent modifer des process')]
     public function updateProcess(Request $request, string $id): JsonResponse
     {
         try {
@@ -161,6 +164,7 @@ class ProcessController extends AbstractController
      * Supprimer un processus
      */
     #[Route('/rnd/process/{id}', name: 'delete_process', methods: ['DELETE'])]
+    #[IsGranted('ROLE_CHERCHEUR', message: 'Seuls les chercheurs peuvent supprimer des process')]
     public function deleteProcess(string $id): JsonResponse
     {
         try {
@@ -192,6 +196,7 @@ class ProcessController extends AbstractController
      * Valider un processus
      */
     #[Route('/rnd/process/{id}/validate', name: 'validate_process', methods: ['PUT'])]
+    #[IsGranted('ROLE_TESTEUR', message: 'Seuls les testeurs peuvent valider des process')]
     public function validateProcess(string $id): JsonResponse
     {
         try {
