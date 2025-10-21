@@ -38,7 +38,7 @@ use App\Infrastructure\Freezebee\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class SeriesIntput implements ModelInterface, ArrayAccess, \JsonSerializable
+class SeriesInput implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 

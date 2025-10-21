@@ -36,11 +36,7 @@ use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use App\Infrastructure\FreezebeeException;
-use OpenAPI\Client\Configuration;
-use OpenAPI\Client\FormDataProcessor;
-use OpenAPI\Client\HeaderSelector;
-use OpenAPI\Client\ObjectSerializer;
-
+use App\Model\FreezebeeDTO\SeriesOutput;
 /**
  * SeriesApi Class Doc Comment
  *
@@ -134,10 +130,9 @@ class SeriesApi
      *
      * Creates a new Series.
      *
-     * @param  SeriesInput $Series_input Create an Series (required)
+     * @param  \App\Model\FreezebeeDTO\SeriesInput $Series_input Create an Series (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createSeries'] to see the possible values for this operation
      *
-     * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return SeriesOutput[]
      */
@@ -152,16 +147,16 @@ class SeriesApi
      *
      * Creates a new Series.
      *
-     * @param  \OpenAPI\Client\Model\SeriesInput $Series_input Create an Series (required)
+     * @param  \App\Model\FreezebeeDTO\SeriesInput $series_input Create an Series (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createSeries'] to see the possible values for this operation
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\SeriesOutput[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of SeriesOutput[], HTTP status code, HTTP response headers (array of strings)
      */
-    public function createSeriesWithHttpInfo($Series_input, string $contentType = self::contentTypes['createSeries'][0])
+    public function createSeriesWithHttpInfo($series_input, string $contentType = self::contentTypes['createSeries'][0])
     {
-        $request = $this->createSeriesRequest($Series_input, $contentType);
+        $request = $this->createSeriesRequest($series_input, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -189,7 +184,7 @@ class SeriesApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\OpenAPI\Client\Model\SeriesOutput[]',
+                        'SeriesOutput[]',
                         $request,
                         $response,
                     );
@@ -211,7 +206,7 @@ class SeriesApi
             }
 
             return $this->handleResponseWithDataType(
-                '\OpenAPI\Client\Model\SeriesOutput[]',
+                '\App\Model\FreezebeeDTO\SeriesOutput[]',
                 $request,
                 $response,
             );
@@ -220,7 +215,7 @@ class SeriesApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\SeriesOutput[]',
+                        '\App\Model\FreezebeeDTO\SeriesOutput[]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -237,15 +232,15 @@ class SeriesApi
      *
      * Creates a new Series.
      *
-     * @param  \OpenAPI\Client\Model\SeriesInput $Series_input Create an Series (required)
+     * @param  \App\Model\FreezebeeDTO\SeriesInput $series_input Create an Series (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createSeries'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createSeriesAsync($Series_input, string $contentType = self::contentTypes['createSeries'][0])
+    public function createSeriesAsync($series_input, string $contentType = self::contentTypes['createSeries'][0])
     {
-        return $this->createSeriesAsyncWithHttpInfo($Series_input, $contentType)
+        return $this->createSeriesAsyncWithHttpInfo($series_input, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -258,16 +253,16 @@ class SeriesApi
      *
      * Creates a new Series.
      *
-     * @param  \OpenAPI\Client\Model\SeriesInput $Series_input Create an Series (required)
+     * @param  \App\Model\FreezebeeDTO\SeriesInput $series_input Create an Series (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createSeries'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createSeriesAsyncWithHttpInfo($Series_input, string $contentType = self::contentTypes['createSeries'][0])
+    public function createSeriesAsyncWithHttpInfo($series_input, string $contentType = self::contentTypes['createSeries'][0])
     {
-        $returnType = '\OpenAPI\Client\Model\SeriesOutput[]';
-        $request = $this->createSeriesRequest($Series_input, $contentType);
+        $returnType = '\App\Model\FreezebeeDTO\SeriesOutput[]';
+        $request = $this->createSeriesRequest($series_input, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -308,7 +303,7 @@ class SeriesApi
     /**
      * Create request for operation 'createSeries'
      *
-     * @param  \OpenAPI\Client\Model\SeriesInput $Series_input Create an Series (required)
+     * @param  \App\Model\FreezebeeDTO\SeriesInput $Series_input Create an Series (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createSeries'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -403,9 +398,8 @@ class SeriesApi
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSeries'] to see the possible values for this operation
      *
-     * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\SeriesOutput[]
+     * @return \App\Model\FreezebeeDTO\SeriesOutput[]
      */
     public function getSeries(string $contentType = self::contentTypes['getSeries'][0])
     {
@@ -420,9 +414,8 @@ class SeriesApi
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSeries'] to see the possible values for this operation
      *
-     * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\SeriesOutput[], HTTP status code, HTTP response headers (array of strings)
+     * @return array<\App\Model\FreezebeeDTO\SeriesOutput>, HTTP status code, HTTP response headers (array of strings)
      */
     public function getSeriesWithHttpInfo(string $contentType = self::contentTypes['getSeries'][0])
     {
@@ -454,7 +447,7 @@ class SeriesApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\OpenAPI\Client\Model\SeriesOutput[]',
+                        'SeriesOutput[]',
                         $request,
                         $response,
                     );
@@ -476,7 +469,7 @@ class SeriesApi
             }
 
             return $this->handleResponseWithDataType(
-                '\OpenAPI\Client\Model\SeriesOutput[]',
+                '\App\Model\FreezebeeDTO\SeriesOutput[]',
                 $request,
                 $response,
             );
@@ -485,7 +478,7 @@ class SeriesApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\SeriesOutput[]',
+                        '\App\Model\FreezebeeDTO\SeriesOutput[]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -529,7 +522,7 @@ class SeriesApi
      */
     public function getSeriesAsyncWithHttpInfo(string $contentType = self::contentTypes['getSeries'][0])
     {
-        $returnType = '\OpenAPI\Client\Model\SeriesOutput[]';
+        $returnType = '\App\Model\FreezebeeDTO\SeriesOutput[]';
         $request = $this->getSeriesRequest($contentType);
 
         return $this->client
@@ -650,12 +643,11 @@ class SeriesApi
      * Updates an Series.
      *
      * @param  string $Series_id Numeric ID of the Series. (required)
-     * @param  \OpenAPI\Client\Model\SeriesInput $Series_input Modify an Series (required)
+     * @param  \App\Model\FreezebeeDTO\SeriesInput $Series_input Modify an Series (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['modifySeries'] to see the possible values for this operation
      *
-     * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\SeriesOutput[]
+     * @return \App\Model\FreezebeeDTO\SeriesOutput[]
      */
     public function modifySeries($Series_id, $Series_input, string $contentType = self::contentTypes['modifySeries'][0])
     {
@@ -669,12 +661,12 @@ class SeriesApi
      * Updates an Series.
      *
      * @param  string $Series_id Numeric ID of the Series. (required)
-     * @param  \OpenAPI\Client\Model\SeriesInput $Series_input Modify an Series (required)
+     * @param  \App\Model\FreezebeeDTO\SeriesInput $Series_input Modify an Series (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['modifySeries'] to see the possible values for this operation
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\SeriesOutput[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of \App\Model\FreezebeeDTO\SeriesOutput[], HTTP status code, HTTP response headers (array of strings)
      */
     public function modifySeriesWithHttpInfo($Series_id, $Series_input, string $contentType = self::contentTypes['modifySeries'][0])
     {
@@ -706,7 +698,7 @@ class SeriesApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\OpenAPI\Client\Model\SeriesOutput[]',
+                        'SeriesOutput[]',
                         $request,
                         $response,
                     );
@@ -728,7 +720,7 @@ class SeriesApi
             }
 
             return $this->handleResponseWithDataType(
-                '\OpenAPI\Client\Model\SeriesOutput[]',
+                '\App\Model\FreezebeeDTO\SeriesOutput[]',
                 $request,
                 $response,
             );
@@ -737,7 +729,7 @@ class SeriesApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\SeriesOutput[]',
+                        '\App\Model\FreezebeeDTO\SeriesOutput[]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -755,7 +747,7 @@ class SeriesApi
      * Updates an Series.
      *
      * @param  string $Series_id Numeric ID of the Series. (required)
-     * @param  \OpenAPI\Client\Model\SeriesInput $Series_input Modify an Series (required)
+     * @param  \App\Model\FreezebeeDTO\SeriesInput $Series_input Modify an Series (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['modifySeries'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -777,7 +769,7 @@ class SeriesApi
      * Updates an Series.
      *
      * @param  string $Series_id Numeric ID of the Series. (required)
-     * @param  \OpenAPI\Client\Model\SeriesInput $Series_input Modify an Series (required)
+     * @param  \App\Model\FreezebeeDTO\SeriesInput $Series_input Modify an Series (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['modifySeries'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -785,7 +777,7 @@ class SeriesApi
      */
     public function modifySeriesAsyncWithHttpInfo($Series_id, $Series_input, string $contentType = self::contentTypes['modifySeries'][0])
     {
-        $returnType = '\OpenAPI\Client\Model\SeriesOutput[]';
+        $returnType = '\App\Model\FreezebeeDTO\SeriesOutput[]';
         $request = $this->modifySeriesRequest($Series_id, $Series_input, $contentType);
 
         return $this->client
@@ -828,7 +820,7 @@ class SeriesApi
      * Create request for operation 'modifySeries'
      *
      * @param  string $Series_id Numeric ID of the Series. (required)
-     * @param  \OpenAPI\Client\Model\SeriesInput $Series_input Modify an Series (required)
+     * @param  \App\Model\FreezebeeDTO\SeriesInput $Series_input Modify an Series (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['modifySeries'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
