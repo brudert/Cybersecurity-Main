@@ -27,6 +27,7 @@
 
 namespace App\Infrastructure\Freezebee;
 use App\Model\FreezebeeDTO\IngredientOutput;
+use App\Model\FreezebeeDTO\SeriesOutput;
 use App\Model\FreezebeeDTO\ModelInterface;
 use GuzzleHttp\Psr7\Utils;
 
