@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class CharacteristicsController extends AbstractController
 {
@@ -22,6 +23,7 @@ class CharacteristicsController extends AbstractController
      * Créer une nouvelle caractéristique
      */
     #[Route('/rnd/characteristic/', name: 'create_characteristic', methods: ['POST'])] 
+   #[IsGranted('ROLE_CHERCHEUR', message: 'Seuls les chercheurs peuvent ajouter des caractéristiques')]
     public function create(Request $request): JsonResponse
     {
         try {
@@ -148,6 +150,7 @@ class CharacteristicsController extends AbstractController
      * Mettre à jour une caractéristique
      */
     #[Route('/rnd/characteristic/{id}', name: 'update_characteristic', methods: ['PUT'])]
+  #[IsGranted('ROLE_CHERCHEUR', message: 'Seuls les chercheurs peuvent modifer des caractéristiques')]
     public function updateCharacteristic(Request $request, string $id): JsonResponse
     {
         try {
@@ -201,6 +204,7 @@ class CharacteristicsController extends AbstractController
      * Supprimer une caractéristique
      */
     #[Route('/rnd/characteristic/{id}', name: 'delete_characteristic', methods: ['DELETE'])]
+  #[IsGranted('ROLE_CHERCHEUR', message: 'Seuls les chercheurs peuvent supprimer des caractéristiques')]
     public function deleteCharacteristic(string $id): JsonResponse
     {
         try {
