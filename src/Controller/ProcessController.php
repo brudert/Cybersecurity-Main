@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Controller;
+namespace App\Controller;
 
 use App\Infrastructure\Freezebee\ProcessApi;
 use App\Model\FreezebeeDTO\ProcessInput;
