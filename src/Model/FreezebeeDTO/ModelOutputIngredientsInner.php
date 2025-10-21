@@ -28,7 +28,7 @@
 namespace App\Model\FreezebeeDTO;
 
 use \ArrayAccess;
-use \OpenAPI\Client\ObjectSerializer;
+use App\Infrastructure\Freezebee\ObjectSerializer;
 
 /**
  * ModelOutputIngredientsInner Class Doc Comment
@@ -55,7 +55,7 @@ class ModelOutputIngredientsInner implements ModelInterface, ArrayAccess, \JsonS
       * @var string[]
       */
     protected static $openAPITypes = [
-        'ingredient' => '\App\Model\FreezebeeDTO\IngredientOutput',
+        'ingredient' => 'IngredientOutput',
         'dosage' => 'int'
     ];
 
@@ -297,7 +297,7 @@ class ModelOutputIngredientsInner implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Gets ingredient
      *
-     * @return \App\Model\FreezebeeDTO\IngredientOutput|null
+     * @return IngredientOutput|null
      */
     public function getIngredient()
     {
@@ -307,7 +307,7 @@ class ModelOutputIngredientsInner implements ModelInterface, ArrayAccess, \JsonS
     /**
      * Sets ingredient
      *
-     * @param \App\Model\FreezebeeDTO\IngredientOutput|null $ingredient ingredient
+     * @param IngredientOutput|null $ingredient ingredient
      *
      * @return self
      */

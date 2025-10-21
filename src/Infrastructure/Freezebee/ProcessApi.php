@@ -36,10 +36,10 @@ use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use App\Infrastructure\FreezebeeException;
-use OpenAPI\Client\Configuration;
-use OpenAPI\Client\FormDataProcessor;
-use OpenAPI\Client\HeaderSelector;
-use OpenAPI\Client\ObjectSerializer;
+use App\Infrastructure\Freezebee\Configuration;
+use App\Infrastructure\Freezebee\FormDataProcessor;
+use App\Infrastructure\Freezebee\HeaderSelector;
+use App\Infrastructure\Freezebee\ObjectSerializer;
 
 /**
  * ProcessApi Class Doc Comment
@@ -140,12 +140,12 @@ class ProcessApi
      *
      * Add a new process.
      *
-     * @param  \OpenAPI\Client\Model\ProcessInput $process_input Create a process (required)
+     * @param  App\Model\FreezebeeDTO\ProcessInput $process_input Create a process (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addProcess'] to see the possible values for this operation
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\ProcessOutput
+     * @return App\Model\FreezebeeDTO\ProcessOutput
      */
     public function addProcess($process_input, string $contentType = self::contentTypes['addProcess'][0])
     {
@@ -158,12 +158,12 @@ class ProcessApi
      *
      * Add a new process.
      *
-     * @param  \OpenAPI\Client\Model\ProcessInput $process_input Create a process (required)
+     * @param  App\Model\FreezebeeDTO\ProcessInput $process_input Create a process (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addProcess'] to see the possible values for this operation
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\ProcessOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of App\Model\FreezebeeDTO\ProcessOutput, HTTP status code, HTTP response headers (array of strings)
      */
     public function addProcessWithHttpInfo($process_input, string $contentType = self::contentTypes['addProcess'][0])
     {
@@ -195,7 +195,7 @@ class ProcessApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\OpenAPI\Client\Model\ProcessOutput',
+                        'App\Model\FreezebeeDTO\ProcessOutput',
                         $request,
                         $response,
                     );
@@ -217,7 +217,7 @@ class ProcessApi
             }
 
             return $this->handleResponseWithDataType(
-                '\OpenAPI\Client\Model\ProcessOutput',
+                'App\Model\FreezebeeDTO\ProcessOutput',
                 $request,
                 $response,
             );
@@ -226,7 +226,7 @@ class ProcessApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\ProcessOutput',
+                        'App\Model\FreezebeeDTO\ProcessOutput',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -243,7 +243,7 @@ class ProcessApi
      *
      * Add a new process.
      *
-     * @param  \OpenAPI\Client\Model\ProcessInput $process_input Create a process (required)
+     * @param  App\Model\FreezebeeDTO\ProcessInput $process_input Create a process (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addProcess'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -264,7 +264,7 @@ class ProcessApi
      *
      * Add a new process.
      *
-     * @param  \OpenAPI\Client\Model\ProcessInput $process_input Create a process (required)
+     * @param  App\Model\FreezebeeDTO\ProcessInput $process_input Create a process (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addProcess'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -272,7 +272,7 @@ class ProcessApi
      */
     public function addProcessAsyncWithHttpInfo($process_input, string $contentType = self::contentTypes['addProcess'][0])
     {
-        $returnType = '\OpenAPI\Client\Model\ProcessOutput';
+        $returnType = 'App\Model\FreezebeeDTO\ProcessOutput';
         $request = $this->addProcessRequest($process_input, $contentType);
 
         return $this->client
@@ -314,7 +314,7 @@ class ProcessApi
     /**
      * Create request for operation 'addProcess'
      *
-     * @param  \OpenAPI\Client\Model\ProcessInput $process_input Create a process (required)
+     * @param  App\Model\FreezebeeDTO\ProcessInput $process_input Create a process (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addProcess'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -630,7 +630,7 @@ class ProcessApi
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\ProcessOutput
+     * @return App\Model\FreezebeeDTO\ProcessOutput
      */
     public function getProcess($process_id, string $contentType = self::contentTypes['getProcess'][0])
     {
@@ -648,7 +648,7 @@ class ProcessApi
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\ProcessOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of App\Model\FreezebeeDTO\ProcessOutput, HTTP status code, HTTP response headers (array of strings)
      */
     public function getProcessWithHttpInfo($process_id, string $contentType = self::contentTypes['getProcess'][0])
     {
@@ -680,7 +680,7 @@ class ProcessApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\OpenAPI\Client\Model\ProcessOutput',
+                        'App\Model\FreezebeeDTO\ProcessOutput',
                         $request,
                         $response,
                     );
@@ -702,7 +702,7 @@ class ProcessApi
             }
 
             return $this->handleResponseWithDataType(
-                '\OpenAPI\Client\Model\ProcessOutput',
+                'App\Model\FreezebeeDTO\ProcessOutput',
                 $request,
                 $response,
             );
@@ -711,7 +711,7 @@ class ProcessApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\ProcessOutput',
+                        'App\Model\FreezebeeDTO\ProcessOutput',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -757,7 +757,7 @@ class ProcessApi
      */
     public function getProcessAsyncWithHttpInfo($process_id, string $contentType = self::contentTypes['getProcess'][0])
     {
-        $returnType = '\OpenAPI\Client\Model\ProcessOutput';
+        $returnType = 'App\Model\FreezebeeDTO\ProcessOutput';
         $request = $this->getProcessRequest($process_id, $contentType);
 
         return $this->client
@@ -894,12 +894,12 @@ class ProcessApi
      * Update an existing process.
      *
      * @param  string $process_id Numeric ID of the process. (required)
-     * @param  \OpenAPI\Client\Model\ProcessInput $process_input Update an existant process for each of the given fields (required)
+     * @param  App\Model\FreezebeeDTO\ProcessInput $process_input Update an existant process for each of the given fields (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateProcess'] to see the possible values for this operation
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\ProcessOutput
+     * @return App\Model\FreezebeeDTO\ProcessOutput
      */
     public function updateProcess($process_id, $process_input, string $contentType = self::contentTypes['updateProcess'][0])
     {
@@ -913,12 +913,12 @@ class ProcessApi
      * Update an existing process.
      *
      * @param  string $process_id Numeric ID of the process. (required)
-     * @param  \OpenAPI\Client\Model\ProcessInput $process_input Update an existant process for each of the given fields (required)
+     * @param  App\Model\FreezebeeDTO\ProcessInput $process_input Update an existant process for each of the given fields (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateProcess'] to see the possible values for this operation
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\ProcessOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of App\Model\FreezebeeDTO\ProcessOutput, HTTP status code, HTTP response headers (array of strings)
      */
     public function updateProcessWithHttpInfo($process_id, $process_input, string $contentType = self::contentTypes['updateProcess'][0])
     {
@@ -950,7 +950,7 @@ class ProcessApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\OpenAPI\Client\Model\ProcessOutput',
+                        'App\Model\FreezebeeDTO\ProcessOutput',
                         $request,
                         $response,
                     );
@@ -972,7 +972,7 @@ class ProcessApi
             }
 
             return $this->handleResponseWithDataType(
-                '\OpenAPI\Client\Model\ProcessOutput',
+                'App\Model\FreezebeeDTO\ProcessOutput',
                 $request,
                 $response,
             );
@@ -981,7 +981,7 @@ class ProcessApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\ProcessOutput',
+                        'App\Model\FreezebeeDTO\ProcessOutput',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -999,7 +999,7 @@ class ProcessApi
      * Update an existing process.
      *
      * @param  string $process_id Numeric ID of the process. (required)
-     * @param  \OpenAPI\Client\Model\ProcessInput $process_input Update an existant process for each of the given fields (required)
+     * @param  App\Model\FreezebeeDTO\ProcessInput $process_input Update an existant process for each of the given fields (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateProcess'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1021,7 +1021,7 @@ class ProcessApi
      * Update an existing process.
      *
      * @param  string $process_id Numeric ID of the process. (required)
-     * @param  \OpenAPI\Client\Model\ProcessInput $process_input Update an existant process for each of the given fields (required)
+     * @param  App\Model\FreezebeeDTO\ProcessInput $process_input Update an existant process for each of the given fields (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateProcess'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1029,7 +1029,7 @@ class ProcessApi
      */
     public function updateProcessAsyncWithHttpInfo($process_id, $process_input, string $contentType = self::contentTypes['updateProcess'][0])
     {
-        $returnType = '\OpenAPI\Client\Model\ProcessOutput';
+        $returnType = 'App\Model\FreezebeeDTO\ProcessOutput';
         $request = $this->updateProcessRequest($process_id, $process_input, $contentType);
 
         return $this->client
@@ -1072,7 +1072,7 @@ class ProcessApi
      * Create request for operation 'updateProcess'
      *
      * @param  string $process_id Numeric ID of the process. (required)
-     * @param  \OpenAPI\Client\Model\ProcessInput $process_input Update an existant process for each of the given fields (required)
+     * @param  App\Model\FreezebeeDTO\ProcessInput $process_input Update an existant process for each of the given fields (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateProcess'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1185,7 +1185,7 @@ class ProcessApi
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\ProcessOutput
+     * @return App\Model\FreezebeeDTO\ProcessOutput
      */
     public function validateProcess($process_id, string $contentType = self::contentTypes['validateProcess'][0])
     {
@@ -1203,7 +1203,7 @@ class ProcessApi
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\ProcessOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of App\Model\FreezebeeDTO\ProcessOutput, HTTP status code, HTTP response headers (array of strings)
      */
     public function validateProcessWithHttpInfo($process_id, string $contentType = self::contentTypes['validateProcess'][0])
     {
@@ -1235,7 +1235,7 @@ class ProcessApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\OpenAPI\Client\Model\ProcessOutput',
+                        'App\Model\FreezebeeDTO\ProcessOutput',
                         $request,
                         $response,
                     );
@@ -1257,7 +1257,7 @@ class ProcessApi
             }
 
             return $this->handleResponseWithDataType(
-                '\OpenAPI\Client\Model\ProcessOutput',
+                'App\Model\FreezebeeDTO\ProcessOutput',
                 $request,
                 $response,
             );
@@ -1266,7 +1266,7 @@ class ProcessApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\ProcessOutput',
+                        'App\Model\FreezebeeDTO\ProcessOutput',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1312,7 +1312,7 @@ class ProcessApi
      */
     public function validateProcessAsyncWithHttpInfo($process_id, string $contentType = self::contentTypes['validateProcess'][0])
     {
-        $returnType = '\OpenAPI\Client\Model\ProcessOutput';
+        $returnType = 'App\Model\FreezebeeDTO\ProcessOutput';
         $request = $this->validateProcessRequest($process_id, $contentType);
 
         return $this->client
@@ -1473,7 +1473,7 @@ class ProcessApi
             $content = (string) $response->getBody();
             if ($dataType !== 'string') {
                 try {
-                    $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    $content = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
                 } catch (\JsonException $exception) {
                     throw new ApiException(
                         sprintf(

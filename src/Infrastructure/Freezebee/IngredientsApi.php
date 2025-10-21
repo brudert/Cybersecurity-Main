@@ -41,6 +41,8 @@ use App\Infrastructure\Freezebee\FormDataProcessor;
 use App\Infrastructure\Freezebee\HeaderSelector;
 use App\Infrastructure\Freezebee\ObjectSerializer;
 use App\Infrastructure\Freezebee\ApiException;
+use App\Model\FreezebeeDTO\IngredientInput;
+use App\Model\FreezebeeDTO\IngredientOutput;
 
 /**
  * IngredientsApi Class Doc Comment
@@ -135,14 +137,14 @@ class IngredientsApi
      *
      * Creates a new ingredient.
      *
-     * @param  \OpenAPI\Client\Model\IngredientInput $ingredient_input Create an ingredient (required)
+     * @param  array<string,string> $ingredient_input Create an ingredient (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createIngredients'] to see the possible values for this operation
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\IngredientOutput[]
+     * @return IngredientOutput
      */
-    public function createIngredients($ingredient_input, string $contentType = self::contentTypes['createIngredients'][0])
+    public function createIngredients(array $ingredient_input, string $contentType = self::contentTypes['createIngredients'][0])
     {
         list($response) = $this->createIngredientsWithHttpInfo($ingredient_input, $contentType);
         return $response;
@@ -153,12 +155,12 @@ class IngredientsApi
      *
      * Creates a new ingredient.
      *
-     * @param  \OpenAPI\Client\Model\IngredientInput $ingredient_input Create an ingredient (required)
+     * @param  App\Model\FreezebeeDTO\IngredientInput $ingredient_input Create an ingredient (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createIngredients'] to see the possible values for this operation
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\IngredientOutput[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of IngredientOutput, HTTP status code, HTTP response headers (array of strings)
      */
     public function createIngredientsWithHttpInfo($ingredient_input, string $contentType = self::contentTypes['createIngredients'][0])
     {
@@ -190,7 +192,7 @@ class IngredientsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\OpenAPI\Client\Model\IngredientOutput[]',
+                        'IngredientOutput',
                         $request,
                         $response,
                     );
@@ -212,7 +214,7 @@ class IngredientsApi
             }
 
             return $this->handleResponseWithDataType(
-                '\OpenAPI\Client\Model\IngredientOutput[]',
+                'IngredientOutput',
                 $request,
                 $response,
             );
@@ -221,7 +223,7 @@ class IngredientsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\IngredientOutput[]',
+                        'IngredientOutput',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -238,7 +240,7 @@ class IngredientsApi
      *
      * Creates a new ingredient.
      *
-     * @param  \OpenAPI\Client\Model\IngredientInput $ingredient_input Create an ingredient (required)
+     * @param  App\Model\FreezebeeDTO\IngredientInput $ingredient_input Create an ingredient (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createIngredients'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -259,7 +261,7 @@ class IngredientsApi
      *
      * Creates a new ingredient.
      *
-     * @param  \OpenAPI\Client\Model\IngredientInput $ingredient_input Create an ingredient (required)
+     * @param  App\Model\FreezebeeDTO\IngredientInput $ingredient_input Create an ingredient (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createIngredients'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -267,7 +269,7 @@ class IngredientsApi
      */
     public function createIngredientsAsyncWithHttpInfo($ingredient_input, string $contentType = self::contentTypes['createIngredients'][0])
     {
-        $returnType = '\OpenAPI\Client\Model\IngredientOutput[]';
+        $returnType = 'IngredientOutput';
         $request = $this->createIngredientsRequest($ingredient_input, $contentType);
 
         return $this->client
@@ -309,7 +311,7 @@ class IngredientsApi
     /**
      * Create request for operation 'createIngredients'
      *
-     * @param  \OpenAPI\Client\Model\IngredientInput $ingredient_input Create an ingredient (required)
+     * @param  App\Model\FreezebeeDTO\IngredientInput $ingredient_input Create an ingredient (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createIngredients'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -326,7 +328,7 @@ class IngredientsApi
         }
 
 
-        $resourcePath = '/ingredient/';
+        $resourcePath = '/ingredient';
         $formParams = [];
         $queryParams = [];
         $headerParams = [];
@@ -347,7 +349,7 @@ class IngredientsApi
         if (isset($ingredient_input)) {
             if (stripos($headers['Content-Type'], 'application/json') !== false) {
                 # if Content-Type contains "application/json", json_encode the body
-                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ingredient_input));
+                $httpBody = json_encode($ingredient_input);//\GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($ingredient_input));
             } else {
                 $httpBody = $ingredient_input;
             }
@@ -374,7 +376,6 @@ class IngredientsApi
                 $httpBody = ObjectSerializer::buildQuery($formParams);
             }
         }
-
 
         $defaultHeaders = [];
         if ($this->config->getUserAgent()) {
@@ -406,7 +407,7 @@ class IngredientsApi
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\IngredientOutput[]
+     * @return IngredientOutput
      */
     public function getIngredients(string $contentType = self::contentTypes['getIngredients'][0])
     {
@@ -423,7 +424,7 @@ class IngredientsApi
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\IngredientOutput[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of IngredientOutput, HTTP status code, HTTP response headers (array of strings)
      */
     public function getIngredientsWithHttpInfo(string $contentType = self::contentTypes['getIngredients'][0])
     {
@@ -455,7 +456,7 @@ class IngredientsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\OpenAPI\Client\Model\IngredientOutput[]',
+                        'IngredientOutput[]',
                         $request,
                         $response,
                     );
@@ -477,7 +478,7 @@ class IngredientsApi
             }
 
             return $this->handleResponseWithDataType(
-                '\OpenAPI\Client\Model\IngredientOutput[]',
+                'IngredientOutput[]',
                 $request,
                 $response,
             );
@@ -486,7 +487,7 @@ class IngredientsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\IngredientOutput[]',
+                        'IngredientOutput[]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -530,7 +531,7 @@ class IngredientsApi
      */
     public function getIngredientsAsyncWithHttpInfo(string $contentType = self::contentTypes['getIngredients'][0])
     {
-        $returnType = '\OpenAPI\Client\Model\IngredientOutput[]';
+        $returnType = 'IngredientOutput[]';
         $request = $this->getIngredientsRequest($contentType);
 
         return $this->client
@@ -651,12 +652,12 @@ class IngredientsApi
      * Updates an ingredient.
      *
      * @param  string $ingredient_id Numeric ID of the ingredient. (required)
-     * @param  \OpenAPI\Client\Model\IngredientInput $ingredient_input Modify an ingredient (required)
+     * @param  App\Model\FreezebeeDTO\IngredientInput $ingredient_input Modify an ingredient (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['modifyIngredients'] to see the possible values for this operation
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\IngredientOutput[]
+     * @return IngredientOutput
      */
     public function modifyIngredients($ingredient_id, $ingredient_input, string $contentType = self::contentTypes['modifyIngredients'][0])
     {
@@ -670,12 +671,12 @@ class IngredientsApi
      * Updates an ingredient.
      *
      * @param  string $ingredient_id Numeric ID of the ingredient. (required)
-     * @param  \OpenAPI\Client\Model\IngredientInput $ingredient_input Modify an ingredient (required)
+     * @param  App\Model\FreezebeeDTO\IngredientInput $ingredient_input Modify an ingredient (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['modifyIngredients'] to see the possible values for this operation
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\IngredientOutput[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of IngredientOutput, HTTP status code, HTTP response headers (array of strings)
      */
     public function modifyIngredientsWithHttpInfo($ingredient_id, $ingredient_input, string $contentType = self::contentTypes['modifyIngredients'][0])
     {
@@ -707,7 +708,7 @@ class IngredientsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\OpenAPI\Client\Model\IngredientOutput[]',
+                        'IngredientOutput',
                         $request,
                         $response,
                     );
@@ -729,7 +730,7 @@ class IngredientsApi
             }
 
             return $this->handleResponseWithDataType(
-                '\OpenAPI\Client\Model\IngredientOutput[]',
+                'IngredientOutput',
                 $request,
                 $response,
             );
@@ -738,7 +739,7 @@ class IngredientsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\IngredientOutput[]',
+                        'IngredientOutput',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -756,7 +757,7 @@ class IngredientsApi
      * Updates an ingredient.
      *
      * @param  string $ingredient_id Numeric ID of the ingredient. (required)
-     * @param  \OpenAPI\Client\Model\IngredientInput $ingredient_input Modify an ingredient (required)
+     * @param  App\Model\FreezebeeDTO\IngredientInput $ingredient_input Modify an ingredient (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['modifyIngredients'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -778,7 +779,7 @@ class IngredientsApi
      * Updates an ingredient.
      *
      * @param  string $ingredient_id Numeric ID of the ingredient. (required)
-     * @param  \OpenAPI\Client\Model\IngredientInput $ingredient_input Modify an ingredient (required)
+     * @param  App\Model\FreezebeeDTO\IngredientInput $ingredient_input Modify an ingredient (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['modifyIngredients'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -786,7 +787,7 @@ class IngredientsApi
      */
     public function modifyIngredientsAsyncWithHttpInfo($ingredient_id, $ingredient_input, string $contentType = self::contentTypes['modifyIngredients'][0])
     {
-        $returnType = '\OpenAPI\Client\Model\IngredientOutput[]';
+        $returnType = 'IngredientOutput';
         $request = $this->modifyIngredientsRequest($ingredient_id, $ingredient_input, $contentType);
 
         return $this->client
@@ -829,7 +830,7 @@ class IngredientsApi
      * Create request for operation 'modifyIngredients'
      *
      * @param  string $ingredient_id Numeric ID of the ingredient. (required)
-     * @param  \OpenAPI\Client\Model\IngredientInput $ingredient_input Modify an ingredient (required)
+     * @param  App\Model\FreezebeeDTO\IngredientInput $ingredient_input Modify an ingredient (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['modifyIngredients'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -962,7 +963,7 @@ class IngredientsApi
             $content = (string) $response->getBody();
             if ($dataType !== 'string') {
                 try {
-                    $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    $content = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
                 } catch (\JsonException $exception) {
                     throw new ApiException(
                         sprintf(
@@ -975,7 +976,7 @@ class IngredientsApi
                     );
                 }
             }
-        }
+        } 
 
         return [
             ObjectSerializer::deserialize($content, $dataType, []),

@@ -31,7 +31,7 @@ use DateTime;
 use GuzzleHttp\Psr7\Utils;
 use Psr\Http\Message\StreamInterface;
 use SplFileObject;
-use OpenAPI\Client\Model\ModelInterface;
+use App\Model\FreezebeeDTO\ModelInterface;
 
 /**
  * FormDataProcessor Class Doc Comment

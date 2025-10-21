@@ -28,7 +28,7 @@
 namespace App\Model\FreezebeeDTO;
 
 use \ArrayAccess;
-use \OpenAPI\Client\ObjectSerializer;
+use App\Infrastructure\Freezebee\ObjectSerializer;
 
 /**
  * IngredientInput Class Doc Comment

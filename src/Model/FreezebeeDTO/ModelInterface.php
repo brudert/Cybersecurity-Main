@@ -93,7 +93,7 @@ interface ModelInterface
      */
     public function valid();
 
-    /**
+    /**offsetGet
      * Checks if a property is nullable
      *
      * @param string $property

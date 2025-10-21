@@ -136,12 +136,12 @@ class ModelApi
      *
      * Add a new model.
      *
-     * @param  \OpenAPI\Client\Model\ModelInput $model_input Create a model (required)
+     * @param  App\Model\FreezebeeDTO\ModelInput $model_input Create a model (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addModel'] to see the possible values for this operation
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\ModelOutput
+     * @return App\Model\FreezebeeDTO\ModelOutput
      */
     public function addModel($model_input, string $contentType = self::contentTypes['addModel'][0])
     {
@@ -154,12 +154,12 @@ class ModelApi
      *
      * Add a new model.
      *
-     * @param  \OpenAPI\Client\Model\ModelInput $model_input Create a model (required)
+     * @param  App\Model\FreezebeeDTO\ModelInput $model_input Create a model (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addModel'] to see the possible values for this operation
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\ModelOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of App\Model\FreezebeeDTO\ModelOutput, HTTP status code, HTTP response headers (array of strings)
      */
     public function addModelWithHttpInfo($model_input, string $contentType = self::contentTypes['addModel'][0])
     {
@@ -191,7 +191,7 @@ class ModelApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\OpenAPI\Client\Model\ModelOutput',
+                        'App\Model\FreezebeeDTO\ModelOutput',
                         $request,
                         $response,
                     );
@@ -213,7 +213,7 @@ class ModelApi
             }
 
             return $this->handleResponseWithDataType(
-                '\OpenAPI\Client\Model\ModelOutput',
+                'App\Model\FreezebeeDTO\ModelOutput',
                 $request,
                 $response,
             );
@@ -222,7 +222,7 @@ class ModelApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\ModelOutput',
+                        'App\Model\FreezebeeDTO\ModelOutput',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -239,7 +239,7 @@ class ModelApi
      *
      * Add a new model.
      *
-     * @param  \OpenAPI\Client\Model\ModelInput $model_input Create a model (required)
+     * @param  App\Model\FreezebeeDTO\ModelInput $model_input Create a model (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addModel'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -260,7 +260,7 @@ class ModelApi
      *
      * Add a new model.
      *
-     * @param  \OpenAPI\Client\Model\ModelInput $model_input Create a model (required)
+     * @param  App\Model\FreezebeeDTO\ModelInput $model_input Create a model (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addModel'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -268,7 +268,7 @@ class ModelApi
      */
     public function addModelAsyncWithHttpInfo($model_input, string $contentType = self::contentTypes['addModel'][0])
     {
-        $returnType = '\OpenAPI\Client\Model\ModelOutput';
+        $returnType = 'App\Model\FreezebeeDTO\ModelOutput';
         $request = $this->addModelRequest($model_input, $contentType);
 
         return $this->client
@@ -310,7 +310,7 @@ class ModelApi
     /**
      * Create request for operation 'addModel'
      *
-     * @param  \OpenAPI\Client\Model\ModelInput $model_input Create a model (required)
+     * @param  App\Model\FreezebeeDTO\ModelInput $model_input Create a model (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addModel'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -626,7 +626,7 @@ class ModelApi
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\ModelOutput
+     * @return App\Model\FreezebeeDTO\ModelOutput
      */
     public function getModel($model_id, string $contentType = self::contentTypes['getModel'][0])
     {
@@ -644,7 +644,7 @@ class ModelApi
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\ModelOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return App\Model\FreezebeeDTO\ModelOutput, HTTP status code, HTTP response headers (array of strings)
      */
     public function getModelWithHttpInfo($model_id, string $contentType = self::contentTypes['getModel'][0])
     {
@@ -676,7 +676,7 @@ class ModelApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\OpenAPI\Client\Model\ModelOutput',
+                        'App\Model\FreezebeeDTO\ModelOutput',
                         $request,
                         $response,
                     );
@@ -698,7 +698,7 @@ class ModelApi
             }
 
             return $this->handleResponseWithDataType(
-                '\OpenAPI\Client\Model\ModelOutput',
+                'App\Model\FreezebeeDTO\ModelOutput',
                 $request,
                 $response,
             );
@@ -707,7 +707,7 @@ class ModelApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\ModelOutput',
+                        'App\Model\FreezebeeDTO\ModelOutput',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -753,7 +753,7 @@ class ModelApi
      */
     public function getModelAsyncWithHttpInfo($model_id, string $contentType = self::contentTypes['getModel'][0])
     {
-        $returnType = '\OpenAPI\Client\Model\ModelOutput';
+        $returnType = 'App\Model\FreezebeeDTO\ModelOutput';
         $request = $this->getModelRequest($model_id, $contentType);
 
         return $this->client
@@ -893,7 +893,7 @@ class ModelApi
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\ModelOutput[]
+     * @return App\Model\FreezebeeDTO\ModelOutput
      */
     public function getModels(string $contentType = self::contentTypes['getModels'][0])
     {
@@ -910,7 +910,7 @@ class ModelApi
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\ModelOutput[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of App\Model\FreezebeeDTO\ModelOutput[], HTTP status code, HTTP response headers (array of strings)
      */
     public function getModelsWithHttpInfo(string $contentType = self::contentTypes['getModels'][0])
     {
@@ -942,7 +942,7 @@ class ModelApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\OpenAPI\Client\Model\ModelOutput[]',
+                        'App\Model\FreezebeeDTO\ModelOutput[]',
                         $request,
                         $response,
                     );
@@ -964,7 +964,7 @@ class ModelApi
             }
 
             return $this->handleResponseWithDataType(
-                '\OpenAPI\Client\Model\ModelOutput[]',
+                'App\Model\FreezebeeDTO\ModelOutput[]',
                 $request,
                 $response,
             );
@@ -973,7 +973,7 @@ class ModelApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\ModelOutput[]',
+                        'App\Model\FreezebeeDTO\ModelOutput[]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1017,7 +1017,7 @@ class ModelApi
      */
     public function getModelsAsyncWithHttpInfo(string $contentType = self::contentTypes['getModels'][0])
     {
-        $returnType = '\OpenAPI\Client\Model\ModelOutput[]';
+        $returnType = 'App\Model\FreezebeeDTO\ModelOutput[]';
         $request = $this->getModelsRequest($contentType);
 
         return $this->client
@@ -1138,12 +1138,12 @@ class ModelApi
      * Update an existing model.
      *
      * @param  string $model_id Numeric ID of the model. (required)
-     * @param  \OpenAPI\Client\Model\ModelInput $model_input Update an existent model for each of the given fields (required)
+     * @param  App\Model\FreezebeeDTO\ModelInput $model_input Update an existent model for each of the given fields (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateModel'] to see the possible values for this operation
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\ModelOutput
+     * @return App\Model\FreezebeeDTO\ModelOutput
      */
     public function updateModel($model_id, $model_input, string $contentType = self::contentTypes['updateModel'][0])
     {
@@ -1157,12 +1157,12 @@ class ModelApi
      * Update an existing model.
      *
      * @param  string $model_id Numeric ID of the model. (required)
-     * @param  \OpenAPI\Client\Model\ModelInput $model_input Update an existent model for each of the given fields (required)
+     * @param  App\Model\FreezebeeDTO\ModelInput $model_input Update an existent model for each of the given fields (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateModel'] to see the possible values for this operation
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\ModelOutput, HTTP status code, HTTP response headers (array of strings)
+     * @return array of App\Model\FreezebeeDTO\ModelOutput, HTTP status code, HTTP response headers (array of strings)
      */
     public function updateModelWithHttpInfo($model_id, $model_input, string $contentType = self::contentTypes['updateModel'][0])
     {
@@ -1194,7 +1194,7 @@ class ModelApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\OpenAPI\Client\Model\ModelOutput',
+                        'App\Model\FreezebeeDTO\ModelOutput',
                         $request,
                         $response,
                     );
@@ -1216,7 +1216,7 @@ class ModelApi
             }
 
             return $this->handleResponseWithDataType(
-                '\OpenAPI\Client\Model\ModelOutput',
+                'App\Model\FreezebeeDTO\ModelOutput',
                 $request,
                 $response,
             );
@@ -1225,7 +1225,7 @@ class ModelApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\ModelOutput',
+                        'App\Model\FreezebeeDTO\ModelOutput',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1243,7 +1243,7 @@ class ModelApi
      * Update an existing model.
      *
      * @param  string $model_id Numeric ID of the model. (required)
-     * @param  \OpenAPI\Client\Model\ModelInput $model_input Update an existent model for each of the given fields (required)
+     * @param  App\Model\FreezebeeDTO\ModelInput $model_input Update an existent model for each of the given fields (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateModel'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1265,7 +1265,7 @@ class ModelApi
      * Update an existing model.
      *
      * @param  string $model_id Numeric ID of the model. (required)
-     * @param  \OpenAPI\Client\Model\ModelInput $model_input Update an existent model for each of the given fields (required)
+     * @param  App\Model\FreezebeeDTO\ModelInput $model_input Update an existent model for each of the given fields (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateModel'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1273,7 +1273,7 @@ class ModelApi
      */
     public function updateModelAsyncWithHttpInfo($model_id, $model_input, string $contentType = self::contentTypes['updateModel'][0])
     {
-        $returnType = '\OpenAPI\Client\Model\ModelOutput';
+        $returnType = 'App\Model\FreezebeeDTO\ModelOutput';
         $request = $this->updateModelRequest($model_id, $model_input, $contentType);
 
         return $this->client
@@ -1316,7 +1316,7 @@ class ModelApi
      * Create request for operation 'updateModel'
      *
      * @param  string $model_id Numeric ID of the model. (required)
-     * @param  \OpenAPI\Client\Model\ModelInput $model_input Update an existent model for each of the given fields (required)
+     * @param  App\Model\FreezebeeDTO\ModelInput $model_input Update an existent model for each of the given fields (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateModel'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1449,7 +1449,7 @@ class ModelApi
             $content = (string) $response->getBody();
             if ($dataType !== 'string') {
                 try {
-                    $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    $content = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
                 } catch (\JsonException $exception) {
                     throw new ApiException(
                         sprintf(

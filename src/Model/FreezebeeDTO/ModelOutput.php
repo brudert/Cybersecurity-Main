@@ -28,7 +28,7 @@
 namespace App\Model\FreezebeeDTO;
 
 use \ArrayAccess;
-use \OpenAPI\Client\ObjectSerializer;
+use App\Infrastructure\Freezebee\ObjectSerializer;
 
 /**
  * ModelOutput Class Doc Comment
@@ -59,9 +59,9 @@ class ModelOutput implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'string',
         'description' => 'string',
         'p_uht' => 'int',
-        'series' => '\App\Model\FreezebeeDTO\SeriesOutput',
-        'ingredients' => '\App\Model\FreezebeeDTO\ModelOutputIngredientsInner[]',
-        'characteristics' => '\App\Model\FreezebeeDTO\CharacteristicOutput[]'
+        'series' => 'App\Model\FreezebeeDTO\SeriesOutput',
+        'ingredients' => 'App\Model\FreezebeeDTO\ModelOutputIngredientsInner[]',
+        'characteristics' => 'App\Model\FreezebeeDTO\CharacteristicOutput[]'
     ];
 
     /**
@@ -440,7 +440,7 @@ class ModelOutput implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets series
      *
-     * @return \App\Model\FreezebeeDTO\SeriesOutput|null
+     * @return App\Model\FreezebeeDTO\SeriesOutput|null
      */
     public function getSeries()
     {
@@ -450,7 +450,7 @@ class ModelOutput implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets series
      *
-     * @param \App\Model\FreezebeeDTO\SeriesOutput|null $series series
+     * @param App\Model\FreezebeeDTO\SeriesOutput|null $series series
      *
      * @return self
      */
@@ -467,7 +467,7 @@ class ModelOutput implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets ingredients
      *
-     * @return \App\Model\FreezebeeDTO\ModelOutputIngredientsInner[]|null
+     * @return App\Model\FreezebeeDTO\ModelOutputIngredientsInner[]|null
      */
     public function getIngredients()
     {
@@ -477,7 +477,7 @@ class ModelOutput implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets ingredients
      *
-     * @param \App\Model\FreezebeeDTO\ModelOutputIngredientsInner[]|null $ingredients ingredients to make the freezebee
+     * @param App\Model\FreezebeeDTO\ModelOutputIngredientsInner[]|null $ingredients ingredients to make the freezebee
      *
      * @return self
      */
@@ -494,7 +494,7 @@ class ModelOutput implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets characteristics
      *
-     * @return \App\Model\FreezebeeDTO\CharacteristicOutput[]|null
+     * @return App\Model\FreezebeeDTO\CharacteristicOutput[]|null
      */
     public function getCharacteristics()
     {
@@ -504,7 +504,7 @@ class ModelOutput implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets characteristics
      *
-     * @param \App\Model\FreezebeeDTO\CharacteristicOutput[]|null $characteristics the freezebee's characteristics
+     * @param App\Model\FreezebeeDTO\CharacteristicOutput[]|null $characteristics the freezebee's characteristics
      *
      * @return self
      */

@@ -36,10 +36,9 @@ use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use App\Infrastructure\FreezebeeException;
-use OpenAPI\Client\Configuration;
-use OpenAPI\Client\FormDataProcessor;
-use OpenAPI\Client\HeaderSelector;
-use OpenAPI\Client\ObjectSerializer;
+use App\Infrastructure\Freezebee\HeaderSelector;
+use App\Infrastructure\Freezebee\ObjectSerializer;
+use App\Infrastructure\Freezebee\ApiException;
 
 /**
  * CharacteristicsApi Class Doc Comment
@@ -134,12 +133,12 @@ class CharacteristicsApi
      *
      * Creates a new characteristic.
      *
-     * @param  \OpenAPI\Client\Model\CharacteristicInput $characteristic_input Create an characteristic (required)
+     * @param  App\Model\FreezebeeDTO\CharacteristicInput $characteristic_input Create an characteristic (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createCharacteristic'] to see the possible values for this operation
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\CharacteristicOutput[]
+     * @return App\Model\FreezebeeDTO\CharacteristicOutput
      */
     public function createCharacteristic($characteristic_input, string $contentType = self::contentTypes['createCharacteristic'][0])
     {
@@ -152,12 +151,12 @@ class CharacteristicsApi
      *
      * Creates a new characteristic.
      *
-     * @param  \OpenAPI\Client\Model\CharacteristicInput $characteristic_input Create an characteristic (required)
+     * @param  App\Model\FreezebeeDTO\CharacteristicInput $characteristic_input Create an characteristic (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createCharacteristic'] to see the possible values for this operation
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\CharacteristicOutput[], HTTP status code, HTTP response headers (array of strings)
+     * @return App\Model\FreezebeeDTO\CharacteristicOutput, HTTP status code, HTTP response headers (array of strings)
      */
     public function createCharacteristicWithHttpInfo($characteristic_input, string $contentType = self::contentTypes['createCharacteristic'][0])
     {
@@ -189,7 +188,7 @@ class CharacteristicsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\OpenAPI\Client\Model\CharacteristicOutput[]',
+                        'App\Model\FreezebeeDTO\CharacteristicOutput',
                         $request,
                         $response,
                     );
@@ -211,7 +210,7 @@ class CharacteristicsApi
             }
 
             return $this->handleResponseWithDataType(
-                '\OpenAPI\Client\Model\CharacteristicOutput[]',
+                'App\Model\FreezebeeDTO\CharacteristicOutput',
                 $request,
                 $response,
             );
@@ -220,7 +219,7 @@ class CharacteristicsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\CharacteristicOutput[]',
+                        'App\Model\FreezebeeDTO\CharacteristicOutput',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -237,7 +236,7 @@ class CharacteristicsApi
      *
      * Creates a new characteristic.
      *
-     * @param  \OpenAPI\Client\Model\CharacteristicInput $characteristic_input Create an characteristic (required)
+     * @param  App\Model\FreezebeeDTO\CharacteristicInput $characteristic_input Create an characteristic (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createCharacteristic'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -258,7 +257,7 @@ class CharacteristicsApi
      *
      * Creates a new characteristic.
      *
-     * @param  \OpenAPI\Client\Model\CharacteristicInput $characteristic_input Create an characteristic (required)
+     * @param  App\Model\FreezebeeDTO\CharacteristicInput $characteristic_input Create an characteristic (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createCharacteristic'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -266,7 +265,7 @@ class CharacteristicsApi
      */
     public function createCharacteristicAsyncWithHttpInfo($characteristic_input, string $contentType = self::contentTypes['createCharacteristic'][0])
     {
-        $returnType = '\OpenAPI\Client\Model\CharacteristicOutput[]';
+        $returnType = 'App\Model\FreezebeeDTO\CharacteristicOutput';
         $request = $this->createCharacteristicRequest($characteristic_input, $contentType);
 
         return $this->client
@@ -308,7 +307,7 @@ class CharacteristicsApi
     /**
      * Create request for operation 'createCharacteristic'
      *
-     * @param  \OpenAPI\Client\Model\CharacteristicInput $characteristic_input Create an characteristic (required)
+     * @param  App\Model\FreezebeeDTO\CharacteristicInput $characteristic_input Create an characteristic (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createCharacteristic'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -405,7 +404,7 @@ class CharacteristicsApi
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\CharacteristicOutput[]
+     * @return App\Model\FreezebeeDTO\CharacteristicOutput
      */
     public function getCharacteristic(string $contentType = self::contentTypes['getCharacteristic'][0])
     {
@@ -416,13 +415,13 @@ class CharacteristicsApi
     /**
      * Operation getCharacteristicWithHttpInfo
      *
-     * Fetches all characteristic.
+     * Fetches all characteristics.
      *
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getCharacteristic'] to see the possible values for this operation
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\CharacteristicOutput[], HTTP status code, HTTP response headers (array of strings)
+     * @return array of App\Model\FreezebeeDTO\CharacteristicOutput[], HTTP status code, HTTP response headers (array of strings)
      */
     public function getCharacteristicWithHttpInfo(string $contentType = self::contentTypes['getCharacteristic'][0])
     {
@@ -454,7 +453,7 @@ class CharacteristicsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\OpenAPI\Client\Model\CharacteristicOutput[]',
+                        'App\Model\FreezebeeDTO\CharacteristicOutput[]',
                         $request,
                         $response,
                     );
@@ -476,7 +475,7 @@ class CharacteristicsApi
             }
 
             return $this->handleResponseWithDataType(
-                '\OpenAPI\Client\Model\CharacteristicOutput[]',
+                'App\Model\FreezebeeDTO\CharacteristicOutput[]',
                 $request,
                 $response,
             );
@@ -485,7 +484,7 @@ class CharacteristicsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\CharacteristicOutput[]',
+                        'App\Model\FreezebeeDTO\CharacteristicOutput[]',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -529,7 +528,7 @@ class CharacteristicsApi
      */
     public function getCharacteristicAsyncWithHttpInfo(string $contentType = self::contentTypes['getCharacteristic'][0])
     {
-        $returnType = '\OpenAPI\Client\Model\CharacteristicOutput[]';
+        $returnType = 'App\Model\FreezebeeDTO\CharacteristicOutput[]';
         $request = $this->getCharacteristicRequest($contentType);
 
         return $this->client
@@ -650,12 +649,12 @@ class CharacteristicsApi
      * Updates an characteristic.
      *
      * @param  string $characteristic_id Numeric ID of the characteristic. (required)
-     * @param  \OpenAPI\Client\Model\CharacteristicInput $characteristic_input Modify an characteristic (required)
+     * @param  App\Model\FreezebeeDTO\CharacteristicInput $characteristic_input Modify an characteristic (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['modifyCharacteristic'] to see the possible values for this operation
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \OpenAPI\Client\Model\CharacteristicOutput[]
+     * @return App\Model\FreezebeeDTO\CharacteristicOutput[]
      */
     public function modifyCharacteristic($characteristic_id, $characteristic_input, string $contentType = self::contentTypes['modifyCharacteristic'][0])
     {
@@ -669,12 +668,12 @@ class CharacteristicsApi
      * Updates an characteristic.
      *
      * @param  string $characteristic_id Numeric ID of the characteristic. (required)
-     * @param  \OpenAPI\Client\Model\CharacteristicInput $characteristic_input Modify an characteristic (required)
+     * @param  App\Model\FreezebeeDTO\CharacteristicInput $characteristic_input Modify an characteristic (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['modifyCharacteristic'] to see the possible values for this operation
      *
      * @throws \App\Infrastructure\FreezebeeException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \OpenAPI\Client\Model\CharacteristicOutput[], HTTP status code, HTTP response headers (array of strings)
+     * @return App\Model\FreezebeeDTO\CharacteristicOutput, HTTP status code, HTTP response headers (array of strings)
      */
     public function modifyCharacteristicWithHttpInfo($characteristic_id, $characteristic_input, string $contentType = self::contentTypes['modifyCharacteristic'][0])
     {
@@ -706,7 +705,7 @@ class CharacteristicsApi
             switch($statusCode) {
                 case 200:
                     return $this->handleResponseWithDataType(
-                        '\OpenAPI\Client\Model\CharacteristicOutput[]',
+                        'App\Model\FreezebeeDTO\CharacteristicOutput',
                         $request,
                         $response,
                     );
@@ -728,7 +727,7 @@ class CharacteristicsApi
             }
 
             return $this->handleResponseWithDataType(
-                '\OpenAPI\Client\Model\CharacteristicOutput[]',
+                'App\Model\FreezebeeDTO\CharacteristicOutput',
                 $request,
                 $response,
             );
@@ -737,7 +736,7 @@ class CharacteristicsApi
                 case 200:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
-                        '\OpenAPI\Client\Model\CharacteristicOutput[]',
+                        'App\Model\FreezebeeDTO\CharacteristicOutput',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -755,7 +754,7 @@ class CharacteristicsApi
      * Updates an characteristic.
      *
      * @param  string $characteristic_id Numeric ID of the characteristic. (required)
-     * @param  \OpenAPI\Client\Model\CharacteristicInput $characteristic_input Modify an characteristic (required)
+     * @param  App\Model\FreezebeeDTO\CharacteristicInput $characteristic_input Modify an characteristic (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['modifyCharacteristic'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -777,7 +776,7 @@ class CharacteristicsApi
      * Updates an characteristic.
      *
      * @param  string $characteristic_id Numeric ID of the characteristic. (required)
-     * @param  \OpenAPI\Client\Model\CharacteristicInput $characteristic_input Modify an characteristic (required)
+     * @param  App\Model\FreezebeeDTO\CharacteristicInput $characteristic_input Modify an characteristic (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['modifyCharacteristic'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -785,7 +784,7 @@ class CharacteristicsApi
      */
     public function modifyCharacteristicAsyncWithHttpInfo($characteristic_id, $characteristic_input, string $contentType = self::contentTypes['modifyCharacteristic'][0])
     {
-        $returnType = '\OpenAPI\Client\Model\CharacteristicOutput[]';
+        $returnType = 'App\Model\FreezebeeDTO\CharacteristicOutput';
         $request = $this->modifyCharacteristicRequest($characteristic_id, $characteristic_input, $contentType);
 
         return $this->client
@@ -828,7 +827,7 @@ class CharacteristicsApi
      * Create request for operation 'modifyCharacteristic'
      *
      * @param  string $characteristic_id Numeric ID of the characteristic. (required)
-     * @param  \OpenAPI\Client\Model\CharacteristicInput $characteristic_input Modify an characteristic (required)
+     * @param  App\Model\FreezebeeDTO\CharacteristicInput $characteristic_input Modify an characteristic (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['modifyCharacteristic'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -961,7 +960,7 @@ class CharacteristicsApi
             $content = (string) $response->getBody();
             if ($dataType !== 'string') {
                 try {
-                    $content = json_decode($content, false, 512, JSON_THROW_ON_ERROR);
+                    $content = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
                 } catch (\JsonException $exception) {
                     throw new ApiException(
                         sprintf(
